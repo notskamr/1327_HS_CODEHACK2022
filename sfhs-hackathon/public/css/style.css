@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins');
+
+body {
+    background-color: rgb(20, 20, 20);
+    margin: 0;
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+
+.container-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.opacity-0 {
+    opacity: 0%
+}
+.text-fade-in {
+    animation: text-fade-in 1s ease-in forwards;
+}
+@keyframes text-fade-in {
+    from {
+        opacity: 0%
+    }
+
+    to {
+        opacity: 100%
+    }
+}
+
+.fade-out {
+    animation: fade-out 3s ease-in forwards
+}
+@keyframes fade-out {
+    from{
+        opacity: 100%
+    }
+
+    to {
+        opacity: 0%
+    }
+}
+
+.pause-btn {
+    font-size: 1.5vmax;
+    margin-right: 1rem;
+}
+
+.settings-btn {
+    font-size: 1.5vmax;
+    display: none;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn {
+    box-shadow: none !important;
+}
+
+.fa-solid { font-family: 'FontAwesome' !important; }
+
+@keyframes hue {
+    from {
+      filter: hue-rotate(0deg);
+    }
+    to {
+      filter: hue-rotate(-360deg);
+    }
+}
+.long-break {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s infinite ease-in;
+    background-position: 0% 50%;
+}
+
+@keyframes gradient {
+
+
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.break-zoom-fade {
+    animation: break-zoom-fade 2s ease forwards;
+}
+
+@keyframes break-zoom-fade {
+    0% {
+        transform: scale(0, 0)
+    }
+
+    75% {
+        transform: scale(1, 1);
+        opacity: 100%;
+    }
+
+    100% {
+        opacity: 0%
+    }
+}
+@keyframes zoom-in {
+    0% {
+        transform: scale(0, 0)
+    }
+
+    100% {
+        transform: scale(1, 1)
+    }
+}
+
+@keyframes zoom-out {
+    0% {
+        transform: scale(1, 1)
+    }
+    100% {
+        transform: scale(0, 0);
+    }
+}
+
+.pomodoro-next {
+    background-color: rgb(20, 20, 20);
+    animation: blacktopink 2.5s;
+}
+
+@keyframes blacktopink {
+    from {background-color: rgb(20, 20, 20);}
+    to {background-color: rgb(102, 25, 96);}
+}
+.btn-intelliger {
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: rgb(226, 176, 176);
+}

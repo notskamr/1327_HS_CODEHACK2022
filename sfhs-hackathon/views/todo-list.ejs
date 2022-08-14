@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Rubik+Dirt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&display=swap');
+@import url('http://fonts.cdnfonts.com/css/nexa-bold');
+* {
+    box-sizing: border-box;
+}
+img {
+    margin-top: 50px;
+}
+body {
+    background-color: #1A0943;
+    color: #1A0943;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppin", sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+
+h1 {
+    color: rgb(194, 154, 255);
+    font-size: 3vmax;
+    text-align: center;
+    font-family: 'Poppins'
+}
+
+form {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    width: 800px;
+    font-family: 'Nexa', sans-serif;
+}
+
+.input {
+    font-family: 'Nexa', sans-serif;
+    border: none;
+    color: rgb(26, 35, 49);
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    display: block;
+    width: 100%;
+}
+
+.input::placeholder {
+    color-interpolation-filters: #d5d5d5;
+}
+
+.todos {
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.todos li {
+    border-top: 1px solid #e5e5e5;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+}
+
+.todos li.completed {
+    color: #69da69;
+    text-decoration: line-through;
+}
+
+small {
+    color: #b5b5b5;
+    margin-top: 3rem;
+    font-size: 1.25rem;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+    </style>
+    <script defer>
+        window.onload = function () {
+            const form = document.getElementById('form');
+const input = document.getElementById('input');
+const todosUL = document.getElementById('todos');
+
+const todos = JSON.parse(localStorage.getItem('todos'));
+
+if(todos) {
+    todos.forEach(todo => {
+        addToDo(todo);
+    });
+    
+}
+
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    addToDo();
+});
+
+function addToDo(todo) {
+    let todoText = input.value;
+    if(todo) {
+        todoText = todo.text;
+    }    
+
+    if(todoText) {
+        const todoEl = document.createElement("li");
+        if(todo && todo.completed) {
+            todoEl.classList.add('completed');
+        }
+        
+        todoEl.innerHTML = todoText;
+
+        todoEl.addEventListener('click', () => {
+            todoEl.classList.toggle('completed');
+
+            updateLS();
+        });
+
+        todoEl.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+
+            todoEl.remove();
+
+            updateLS();
+        })
+
+        todosUL.appendChild(todoEl);
+
+        input.value = "";
+
+        updateLS();
+    }
+}
+
+function updateLS() {
+    const todosEl = document.querySelectorAll('li');
+
+    const todos = [];
+
+    todosEl.forEach(todoEl => {
+        todos.push({
+            text: todoEl.innerHTML,
+            completed: todoEl.classList.contains('completed')
+        })
+    });
+
+    localStorage.setItem("todos", JSON.stringify(todos))
+    
+}
+        }
+    </script>
+</head>
+
+<body>
+
+    <div style="display: flex; justify-content: left; align-items: center; width: 100vw">
+        
+        <picture><img style="margin: 0; padding: 0" src="../logo_dark.png"></picture>
+        <h1 style="margin: 0; padding: 0">To-Do List</h1>
+    </div>
+    <form id="form">
+        <input type="text" id="input" class="input" placeholder="Enter your Todo" autocomplete="off">
+
+        <ul class="todos" id="todos">
+        </ul>
+    </form>
+    <small style="font-family: 'Arial';">Left click to toggle complete.<br><br>
+        Right click to delete the todo</small>
+</body>
+
+</html>

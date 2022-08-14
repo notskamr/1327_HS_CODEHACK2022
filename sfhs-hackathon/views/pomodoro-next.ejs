@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break Time!</title>
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body class="">
+
+    
+        <div id="break-text" class="container-flex-center" style="height: 100vh; visibility: hidden;">
+            <div style="text-align: center;" class="break-zoom-fade">
+                <h1 class="" style="background-image: -webkit-linear-gradient(90deg, rgb(21, 173, 243), rgb(19, 204, 111)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: hue 1s infinite linear; font-size: 8vmax"> TIME FOR A BREAK! </h1>
+            </div>
+        </div>
+        
+
+    <script>
+
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
+        async function func() {
+
+            if (!localStorage.getItem("pomodorosTillLongBreak") || !localStorage.getItem("pomodoroDuration") || !localStorage.getItem("shortBreakDuration") || !localStorage.getItem("longBreakDuration") || !localStorage.getItem("pomodoroCount") || !localStorage.getItem("state") || !localStorage.getItem("summary")) window.location.replace("/")
+
+            
+            if (parseInt(localStorage.pomodoroCount) >= parseInt(localStorage.pomodorosTillLongBreak)) {
+                localStorage.state = "longBreak";
+                localStorage.timer = localStorage.longBreakDuration * 60;
+
+                document.getElementById("break-text").style.visibility = "visible"
+                await delay(2000)
+
+                window.location.replace("/pomodoro/long-break")
+            }
+
+            if (localStorage.state == "timer") {
+                localStorage.timer = localStorage.pomodoroDuration * 60;
+                localStorage.pomodoroCount = parseInt(localStorage.pomodoroCount) + 1
+                window.location.replace("/pomodoro/timer")
+            }
+            
+            if (localStorage.state == "init") {
+                localStorage.timer = localStorage.pomodoroDuration * 60;
+                localStorage.pomodoroCount = 1
+                window.location.replace("/pomodoro/timer")
+            }
+
+            if (localStorage.state == "shortBreak") {
+                localStorage.timer = localStorage.shortBreakDuration * 60
+
+                document.getElementById("break-text").style.visibility = "visible"
+                await delay(2000)
+
+
+                window.location.replace("/pomodoro/short-break")
+            }
+        }
+
+        func()
+
+    </script>
+
+</body>
+</html>

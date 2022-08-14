@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Notes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,200&display=swap');
+        @import url('http://fonts.cdnfonts.com/css/nexa-bold');
+        body {
+            margin: 50px;
+            background: #1B0943;
+        }
+        
+        h1 {
+            font-family: "Poppins", sans-serif;
+            color: rgb(255, 255, 255);
+            font-size: 1.7vmax;
+            margin-left: 1vmax;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        img {
+            text-align: left;
+            height: 75px;
+        }
+        #app {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 200px);
+            padding: 24px;
+            gap: 24px;
+        }
+        
+        .note {
+            height: 200px;
+            box-sizing: border-box;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+            resize: none;
+            font-family: "nexa", sans-serif;
+            font-size: 16px;
+        }
+        
+        .add-note {
+            height: 200px;
+            border: none;
+            outline: none;
+            background: rgba(224, 224, 224, 0.568);
+            border-radius: 10px;
+            font-size: 120px;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .add-note:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+          
+  .delete-btn {
+    text-align: center;
+    height: 50px;
+    width: 125px;
+    border-radius: 10%;
+    border-color: #ffffff;
+    background-color: #004cff;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Poppins";
+    color: white;
+    align-items: right;
+  }
+
+.delete-btn:hover {
+  border-color: #004cff;
+  background-color: white;
+  color: #004cff;
+  transition-delay: 0.5ms;
+  transition-duration: 750ms;
+
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+        
+        
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <script src="../scripts/sticky-notes.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js"></script>
+</head>
+
+
+<body>
+    <div style="display: flex">
+        <picture><img src="../logo_dark.png"></picture>
+        <h1>Sticky Notes</h1>
+    </div>
+
+
+    <div id="app">
+        <button class="add-note" type="button">+</button>
+      </div>
+      <div style="display: grid;">
+        <button style="margin: 0 auto; text-align: center" class="delete-btn">Clear</button>
+        <p style="font-family: Roboto; font-size: 1vmax; color: white; text-align: center;">Right click to delete a note.</p>
+      </div>
+      
+</body>
+
+
+</html>

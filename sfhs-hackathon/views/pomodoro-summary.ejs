@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarise Your Adventure</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; height: 100vh">
+        <div style="width: 60vw;">
+            <label class="form-label">Summary</label>
+            <textarea onkeyup="textchange()" style="font-size: 2vmax;" class="form-control form-control-lg" id="formControlArea" rows="8"></textarea>
+            <div class="d-flex justify-content-evenly mt-4">
+                <div><span id="wordcount">50</span> remaining word(s).</div>
+                <a id="continue" onclick="finishSummary()" class="btn btn-primary">
+                    Continue
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        if (localStorage.state != "timer") {
+            window.location.replace("/pomodoro/next")
+        }
+
+        function countWords(str) {
+        return str.trim().split(/\s+/).length;
+        }
+        document.getElementById("continue").style.display = "none"
+        function textchange() {
+
+            if ((51 - countWords(document.querySelector("#formControlArea").value)) >= 0) {
+                document.getElementById("wordcount").innerHTML = 51 - countWords(document.querySelector("#formControlArea").value)
+                document.getElementById("continue").style.display = "none"
+            }
+            else {
+                document.getElementById("wordcount").innerHTML = "No"
+                document.getElementById("continue").style.display = "inline"
+            }
+            
+            
+
+        }
+
+        function finishSummary() {
+            localStorage.state = "shortBreak"
+            window.location.replace("/pomodoro/next")
+        }
+    </script>
+</body>
+</html>

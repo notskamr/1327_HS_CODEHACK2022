@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Session</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</head>
+<body style="margin: 0">
+    
+    <div class="btm-navbar">
+        <button id="sticky-notes" class="hover navbar-button">Sticky Notes</a>
+        <button id="todo-list" class="hover navbar-button">Todo List</a>
+        <button id="lofi" class="hover navbar-button">LOFIMUSIC</a>
+        <button id="pomodoro" class="hover navbar-button">Pomodoro</a>
+    </div>
+      
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <iframe class="iframe-site" allow="autoplay" class="iframe-site" id="pomodoroframe" scrolling="no" style="width: 100vw; height: 100vh; z-index: 2;" src="https://intelliger-pomodoro.herokuapp.com/pomodoro/timer" title="Pomodoro timer"></iframe>
+        <iframe class="iframe-site" allow="autoplay" id="stickyFrame" scrolling="no" style="width: 100vw; height: 100vh; z-index: 1;" src="https://intelliger-pomodoro.herokuapp.com/sticky-notes" title="Sticky notes"></iframe>
+        <iframe class="iframe-site" allow="autoplay" class="iframe-site" id="lofiframe" scrolling="no" style="width: 100vw; height: 100vh; z-index: 3" src="https://lofimusic.app" title="Lofi"></iframe>
+        <iframe class="iframe-site" allow="autoplay" class="iframe-site" id="todolistframe" scrolling="no" style="width: 100vw; height: 100vh; z-index: 4" src="https://intelliger-pomodoro.herokuapp.com/todo-list" title="Todo list"></iframe>
+    </div>
+    <script>
+        var selected="pomodoro"
+
+        let root = document.documentElement
+
+        const lofiButton = document.getElementById("lofi")
+        const pomodoroButton = document.getElementById("pomodoro")
+        const stickyNotesButton = document.getElementById("sticky-notes")
+        const todoListButton = document.getElementById("todo-list")
+
+        const lofiFrame = document.getElementById("lofiframe")
+        const stickyFrame = document.getElementById("stickyFrame")
+        const pomodoroFrame = document.getElementById("pomodoroframe")
+        const todoListFrame = document.getElementById("todolistframe")
+
+        todoListFrame.style.display = "none"
+        stickyFrame.style.display = "none"
+        pomodoroFrame.style.display = "block"
+        lofiFrame.style.display = "none"
+
+        lofiButton.addEventListener("click", () => {
+            lofiFrame.style.display = "block"
+            pomodoroFrame.style.display = "none"
+            stickyFrame.style.display = "none"
+            todoListFrame.style.display = "none"
+        })
+
+        pomodoroButton.addEventListener("click", () => {
+            lofiFrame.style.display = "none"
+            pomodoroFrame.style.display = "block"
+            stickyFrame.style.display = "none"
+            todoListFrame.style.display = "none"
+        })
+
+        stickyNotesButton.addEventListener("click", () => {
+            lofiFrame.style.display = "none"
+            pomodoroFrame.style.display = "none"
+            stickyFrame.style.display = "block"
+            todoListFrame.style.display = "none"
+        })
+
+        todoListButton.addEventListener("click", () => {
+            lofiFrame.style.display = "none"
+            pomodoroFrame.style.display = "none"
+            stickyFrame.style.display = "none"
+            todoListFrame.style.display = "block"
+        })
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

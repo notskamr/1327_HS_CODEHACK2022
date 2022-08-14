@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long Break!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container-flex-center" style="height: 100vh;">
+        <div id="text-div" class="opacity-0" style="text-align: center; z-index: 3">
+            <p class="">Long Break</p>
+            <h1 style="text-align: center; font-size: 15vmax; color: rgb(255, 255, 255); margin: 0;" id="timer"></h1>
+            <button type=button id="pause" class="btn btn-outline-light pause-btn">Pause</button>
+            <button type=button id="settings" class="btn btn-outline-light settings-btn"><i class="bi bi-gear-fill"></i></button>
+        </div>
+    </div>
+    <div class="fade-out" id="black" style="height:100vh; width: 100vw; position: absolute; top: 0; right: 0; background-color: rgb(20, 20, 20); z-index: 2"></div>
+    <div class="long-break" style="height: 100vh; width: 100vw; position: absolute; top: 0; right: 0; z-index: 1"></div>
+    <div id="settings-div-container" class="container-flex-center" style="height: 100vh; width: 100vw; position: absolute; display: none; top: 0; right: 0;">
+        <div id="settings-div" style="display: flex; justify-content: center; align-items: center; height: 50vh; width: 40vw; background-color: rgb(237, 206, 255); padding: 2vmax; box-shadow: 1rem 1rem 0rem rgba(0, 0, 0, 0.699); z-index: 5;">
+            <div style="display: flex; justify-content: space-evenly; width: 100%;">
+                <div class="rendered-form" style="color: black">
+                    <div class="formbuilder-number form-group field-pomodoroDuration">
+                        <label for="pomodoroDuration" class="formbuilder-number-label">Pomodoro Duration (mins)<span class="formbuilder-required">*</span></label>
+                        <input type="number" class="form-control" name="pomodoroDuration" access="false" id="pomodoroDuration" required="required" aria-required="true">
+                    </div>
+                    <div class="formbuilder-number form-group field-shortBreakDuration">
+                        <label for="shortBreakDuration" class="formbuilder-number-label">Short Break Duration (mins)<span class="formbuilder-required">*</span></label>
+                        <input type="number" class="form-control" name="shortBreakDuration" access="false" id="shortBreakDuration" required="required" aria-required="true">
+                    </div>
+                    <div class="formbuilder-number form-group field-longBreakDuration">
+                        <label for="longBreakDuration" class="formbuilder-number-label">Long Break Duration (mins)<span class="formbuilder-required">*</span></label>
+                        <input type="number" class="form-control" name="longBreakDuration" access="false" id="longBreakDuration" required="required" aria-required="true">
+                    </div>
+                    <div class="formbuilder-number form-group field-pomodorosTillLongBreak">
+                        <label for="pomodorosTillLongBreak" class="formbuilder-number-label">Pomodoro's till Long Break<span class="formbuilder-required">*</span></label>
+                        <input type="number" class="form-control" name="pomodorosTillLongBreak" access="false" id="pomodorosTillLongBreak" required="required" aria-required="true">
+                    </div>
+                    <div class="formbuilder-checkbox-group form-group field-checkbox">
+                        <label for="checkbox" class="formbuilder-checkbox-group-label"></label>
+                        <div class="checkbox-group">
+                            <div class="formbuilder-checkbox">
+                                <input name="checkbox[]" access="false" id="summaryBoolean" value="summaryBoolean" type="checkbox">
+                                <label for="checkbox-0">Summarise your learnings after the session</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formbuilder-button form-group field-save-settings" style="display: flex; justify-content: center">
+                        <button style="margin-top: 1rem" type="submit" class="btn-success btn" name="save-settings" access="false" id="save-settings">Save</button>
+                        <button style="margin-top: 1rem; margin-left: 1rem" class="btn-warning btn" name="close-settings" access="false" id="close-settings">Close</button>
+                        <button style="margin-top: 1rem; margin-left: 1rem" class="btn-danger btn" name="reset-settings" access="false" id="reset-settings">Reset</button>
+                        <span style="width: 100%"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        
+
+        if (!localStorage.getItem("pomodorosTillLongBreak") || !localStorage.getItem("pomodoroDuration") || !localStorage.getItem("shortBreakDuration") || !localStorage.getItem("longBreakDuration") || !localStorage.getItem("pomodoroCount") || !localStorage.getItem("state") || !localStorage.getItem("summary")) {
+            window.location.replace("/")
+        }
+
+        
+
+        if (localStorage.state != "longBreak") window.location.replace("/pomodoro/next")
+
+        window.onload = function () {
+            const saveSettingsButton = document.getElementById("save-settings")
+            const closeSettingsButton = document.getElementById("close-settings")
+            const resetSettingsButton = document.getElementById("reset-settings")
+
+            const pomodoroDurationField = document.getElementById("pomodoroDuration")
+            const shortBreakDurationField = document.getElementById("shortBreakDuration")
+            const longBreakDurationField = document.getElementById("longBreakDuration")
+            const pomodorosTillLongBreakField = document.getElementById("pomodorosTillLongBreak")
+            const summaryBoolean = document.getElementById("summaryBoolean")
+
+            pomodoroDurationField.value = localStorage.pomodoroDuration
+            shortBreakDurationField.value = localStorage.shortBreakDuration
+            longBreakDurationField.value = localStorage.longBreakDuration
+            pomodorosTillLongBreakField.value = localStorage.pomodorosTillLongBreak
+            summaryBoolean.checked = JSON.parse(localStorage.summary)
+
+            saveSettingsButton.addEventListener("click", () => {
+                localStorage.pomodoroDuration = pomodoroDurationField.value
+                localStorage.shortBreakDuration = shortBreakDurationField.value
+                localStorage.longBreakDuration = longBreakDurationField.value
+                localStorage.pomodorosTillLongBreak = pomodorosTillLongBreakField.value
+                localStorage.summary = summaryBoolean.checked
+                localStorage.removeItem("timer")
+                localStorage.state = "init"
+                localStorage.pomodoroCount = 1
+                window.location.replace("/pomodoro/timer")
+            })
+
+            closeSettingsButton.addEventListener("click", () => {
+                document.querySelector("#settings-div-container").style.display = "none"
+            })
+
+            resetSettingsButton.addEventListener("click", () => {
+                let removeKeys = ["pomodoroDuration", "shortBreakDuration", "longBreakDuration", "pomodorosTillLongBreak", "pomodoroCount", "state", "summary", "timer"]
+
+                for (key of removeKeys) {
+                    localStorage.removeItem(key)
+                }
+
+                window.location.replace("/pomodoro/timer")
+            })
+
+
+            let paused = false;
+            pauseButton = document.querySelector("#pause")
+
+            pauseButton.addEventListener("click", () => {
+                paused = !paused
+                if (paused) {
+                    pauseButton.innerHTML = "Resume"
+                    settingsButton.style.display = "inline-block"
+                }
+                else {
+                    pauseButton.innerHTML = "Pause"
+                    settingsButton.style.display = "none"
+                }
+            })
+            settingsButton = document.querySelector("#settings")
+
+
+            settingsButton.addEventListener("click", () => {
+                document.querySelector("#settings-div-container").style.display = "flex"
+            })
+            display = document.querySelector('#timer');
+            let timerDuration = localStorage.timer;
+            let displayed;
+            var timer = timerDuration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+                if (!displayed) {
+                    document.querySelector("#text-div").className = ""
+                    document.querySelector("#text-div").classList.add("text-fade-in")
+                    displayed = true;
+                }
+                if (!paused) {
+                    timer--
+                }
+
+                if (timer < 0) {
+                    localStorage.pomodoroCount = 1
+                    localStorage.state = "init"
+                    localStorage.timer = localStorage.pomodoroDuration * 60
+                    window.location.replace("/pomodoro/next")
+                }
+            }, 1000);
+
+            
+            setInterval(function () {
+                localStorage.setItem("timer", timer)
+            }, 2000)
+
+
+        };
+
+        
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
