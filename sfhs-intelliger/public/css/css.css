@@ -13,7 +13,7 @@ html, body {
     right: 0;
 }
 .gradient {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);;
     background-size: 400% 400%;
     animation: gradient 15s infinite ease-in;
     background-position: 0% 50%;
@@ -41,6 +41,8 @@ html, body {
         background-position: 0% 50%;
     }
 }
+ 
+
 .btm-navbar {
     background-color: rgba(24, 24, 24, 0);
     overflow: hidden;
@@ -70,10 +72,20 @@ html, body {
       filter: hue-rotate(-360deg);
     }
 }
-
+.gstart {
+    background-image: linear-gradient(90deg, rgb(20, 20, 20), 60%, rgb(20, 20, 20));
+        background-size: 0% 3px;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        transition: background-size 250ms ease;
+}
+.gstart:hover {
+    color: rgb(194, 154, 255)
+}
 .hover {
+    color: var(--nav-text-color);
     text-decoration: none;
-    background-image: linear-gradient(90deg, rgb(255, 86, 86), 60%, rgb(188, 255, 227));
+    background-image: linear-gradient(90deg, rgb(194, 154, 255), 60%, rgb(194, 154, 255));
     background-size: 0% 3px;
     background-repeat: no-repeat;
     background-position: center bottom;
