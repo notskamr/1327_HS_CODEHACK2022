@@ -82,16 +82,12 @@ html, body {
 .gstart:hover {
     color: rgb(194, 154, 255)
 }
-.hover {
-    color: var(--nav-text-color);
-    text-decoration: none;
-    background-image: linear-gradient(90deg, rgb(194, 154, 255), 60%, rgb(194, 154, 255));
-    background-size: 0% 3px;
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    transition: background-size 250ms ease;
-}
 
 .hover:hover {
-    background-size: 85% 3px;
+
+
+    background-image: -webkit-linear-gradient(90deg, rgb(180, 223, 243), rgb(163, 241, 202));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradient 15s infinite ease-in, hue 1s infinite linear;
 }
